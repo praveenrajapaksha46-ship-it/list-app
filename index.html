@@ -75,7 +75,7 @@
         <br>
         <button onclick="addItem()">Add</button>
         <button class="delete-all" onclick="clearAll()">Clear All</button>
-
+        <button onclick="shareWhatsApp()">Share WhatsApp</button>
         <div id="list"></div>
 
         <div class="total-box">
@@ -148,6 +148,26 @@ function clearInputs() {
 }
 
 displayItems();
+function shareWhatsApp() {
+    if (items.length === 0) {
+        alert("List is empty!");
+        return;
+    }
+
+    let message = "🛒 My Market List\n\n";
+    let total = 0;
+
+    items.forEach(item => {
+        let itemTotal = item.price * item.qty;
+        total += itemTotal;
+        message += `${item.name} - ${item.qty} x ${item.price} = LKR ${itemTotal}\n`;
+    });
+
+    message += `\nTotal: LKR ${total.toFixed(2)}`;
+
+    let url = "https://wa.me/?text=" + encodeURIComponent(message);
+    window.open(url, "_blank");
+}
 </script>
 
 </body>
